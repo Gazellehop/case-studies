@@ -6,6 +6,7 @@
 -- - the product_id is same for all updated rows
 -- - to select only viable product you would have to select only is_deleted = FALSE
 --Note: in this table one column is missing (Active_product True/False). 
+--Snowflake script (beware! this script has not been validated yet, it is only a draft and you may find errors there):
 SELECT
     product_id
     ,name
