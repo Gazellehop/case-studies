@@ -5,15 +5,16 @@
 -- - in order to have historical changes in this table this column exists to see log of updates
 -- - the product_id is same for all updated rows
 -- - to select only viable product you would have to select only is_deleted = FALSE
+-- - in this table one column is missing (Active_product True/False). 
 SELECT
     product_id
     ,name
     ,Category
     ,price_per_unit
     ,Updated_at
-    ,CASE
-      WHEN rn = 1 then "FALSE"
-      ELSE "TRUE"
+    ,CASE 
+      WHEN rn = 1 then "FALSE" --the latest records mean active product
+      ELSE "TRUE" --the older records mean an inactive product
     END AS is_deleted
   FROM
     (SELECT 
@@ -22,6 +23,6 @@ SELECT
         ,Category
         ,price_per_unit
         ,Updated_at
-        ,ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY updated_at desc) as rn
+        ,ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY updated_at desc) as rn --thanks to this I will get information about the last records for each product. Row number 1 means in this case the last change
       FROM
         Products)
