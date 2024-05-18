@@ -14,7 +14,7 @@ SELECT
     ,price_per_unit
     ,Updated_at
     ,CASE 
-      WHEN rn = 1 then "FALSE" --the latest records mean active product
+      WHEN rn = 1 THEN "FALSE" --the latest records mean active product
       ELSE "TRUE" --the older records mean an inactive product
     END AS is_deleted
   FROM
@@ -24,6 +24,6 @@ SELECT
         ,Category
         ,price_per_unit
         ,Updated_at
-        ,ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY updated_at desc) as rn --thanks to this I will get information about the last records for each product. Row number 1 means in this case the last change.
+        ,ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY updated_at DESC) AS rn --thanks to this I will get information about the last records for each product. Row number 1 means in this case the last change.
       FROM
         Products)
