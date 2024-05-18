@@ -23,7 +23,7 @@ customers_orders AS ( --preparation for final calculation
     SELECT
         customer_id
         ,CASE
-          WHEN date_from >= order_date and date_to <= order_date then 1 --if the order_date is in the range, it means that customer made transaction in the first month after his registration 
+          WHEN date_from >= order_date AND date_to <= order_date THEN 1 --if the order_date is in the range, it means that customer made transaction in the first month after his registration 
           ELSE 0 --zero transactions in the first month after registration
         END AS firstmonth
       FROM  
@@ -38,7 +38,8 @@ customers_orders AS ( --preparation for final calculation
           customers_group AS cust
         LEFT JOIN
           payment AS pay
-        ON cust.customer_id = pay_customer_id
+        ON 
+          cust.customer_id = pay_customer_id
         )
       WHERE
         sale_id IS NOT null --I will remove "customers" without transactions (possible bias - see row nr. 2)
