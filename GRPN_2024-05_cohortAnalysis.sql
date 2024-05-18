@@ -47,7 +47,7 @@ customers_orders AS ( --preparation for final calculation
         customer_id, firstmonth --because there can be duplications of customer_ids thanks to more transactions
 )
 
---one of two queries below can be active in the same time:    
+--only one of two queries below can be active in the same time:    
 --final query for percentage calculation of customers with 1+ transactions in the first month after registration    
 SELECT
     ROUND(100 * COUNT(DISTINCT (CASE WHEN firstmonth = 1 THEN customer_id END))/COUNT(DISTINCT customer_id),2) AS percentage
