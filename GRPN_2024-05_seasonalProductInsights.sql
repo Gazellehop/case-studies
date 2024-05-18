@@ -59,8 +59,8 @@ products_2023_part1 AS (
 ),
 products_2023_part2 AS (
     SELECT
-        ,product_id
-        AVG(quantity)   AS quantity
+        product_id
+        ,AVG(quantity)   AS quantity
       FROM
         payment_products
       WHERE    
@@ -71,7 +71,7 @@ products_2023_part2 AS (
 
 SELECT
     product_id
-    ,100*(sea.quantity/ord.quantity)-1)  AS percent_difference
+    ,ROUND(100*(sea.quantity/ord.quantity)-1),2)  AS percent_difference
   FROM
     products_2023_part1 AS ord
   LEFT JOIN  
