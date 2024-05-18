@@ -1,6 +1,6 @@
 --Cohort Analysis: Group customers based on their registration timestamp, calculate the percentage of customers who have made at least one transaction in the first month after registration, exclude customers with zero transactions
 --Assumption: anyone can open an account (even a registered customer may not have any transaction)
---Snowflake script (beware! this script has not been validated yet, it is only a draft and you may find errors there):
+--Snowflake script:
 WITH
 customers_group AS ( --I want to get a clear source with customer's data
     SELECT
