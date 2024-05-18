@@ -3,7 +3,7 @@
 --Sorry, honestly I am not an expert on time series, so I choose princip below. I found my inspiration in https://docs.snowflake.com/en/user-guide/functions-window-using: Calculating a 3-Day Moving Average.
 --Snowflake script (beware! this script has not been validated yet, it is only a draft and you may find errors there):
 WITH
-revenue_quarters as ( --I want to get source with revenue by individual quarters. 
+revenue_quarters AS ( --I want to get source with revenue by individual quarters. 
     SELECT 
         DATE_TRUNC(quarter, timestamp)  AS quarter --timestamp format for quarter, example: 2024-04-01 00:00:00
         ,SUM(Amount)                    AS revenue_actuals
@@ -13,9 +13,9 @@ revenue_quarters as ( --I want to get source with revenue by individual quarters
 )
 
 SELECT
-    Left(quarter,7)  AS quarter --I changed the format to quarter YYYY-QQ
+    LEFT(quarter,7)  AS quarter --I changed the format to quarter YYYY-QQ
     ,revenue_actuals
-    AVG(revenue_actuals) OVER (ORDER BY quarter ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING) as forecasting --3 PRECEDING AND 1 PRECEDING because I want to get forecast from the complete 3 quarters
+    AVG(revenue_actuals) OVER (ORDER BY quarter ROWS BETWEEN 3 PRECEDING AND 1 PRECEDING) AS forecasting --3 PRECEDING AND 1 PRECEDING because I want to get forecast from the complete 3 quarters
   FROM 
     revenue_quarters
   ORDER BY
