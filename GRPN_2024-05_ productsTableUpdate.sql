@@ -1,4 +1,4 @@
---Broken column is_deleted in the table Products
+--There is one broken column "is_deleted" in the table Products
 --The target is to recreate the column in query to get the right results
 --assumptions:
 -- - product_id is primal key
