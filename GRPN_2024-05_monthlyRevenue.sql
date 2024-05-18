@@ -33,9 +33,9 @@ SELECT
       ELSE last.total_revenue --in other cases will be filled by value from talbe last_two_years
     END                 AS total_revenue
   FROM 
-    full_month as full
+    full_month AS full
   left join
-    last_two_years as last
+    last_two_years AS last
         ON full.date = last.order_month
     ORDER BY 
-      full.date asc
+      full.date ASC
