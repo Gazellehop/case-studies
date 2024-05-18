@@ -1,12 +1,12 @@
 --Seasonal Product Insights: Identify the top 5 products with the highest percentage increase in sales during the holiday season (November and December) compared to the rest of the year
---Assumption: product table has broken column is_deleted, 
+--Assumption: product table has broken column is_deleted
 --Risks: The task is focused on relative data, which can be misleading because there is a risk of bias => from my experience: very often it can happen that an increase of 50% against normal months can be a higher absolute number than an increase of 1000%, it always depends on the basis from which we start. If we want to see the absolute difference, then I need this query in a different way.
---Snowflake script (ONLY DRAFT, WITHOUT VALIDATION):
+--Snowflake script:
 WITH
 --There is one broken column "is_deleted" in the table Products
 --The target is to recreate the column in query to get the right results
 --assumptions:
--- - product_id is primal key
+-- - product_id is the primal key
 -- - in order to have historical changes in this table this column exists to see log of updates
 -- - the product_id is same for all updated rows
 -- - to select only viable product you would have to select only is_deleted = FALSE
@@ -33,7 +33,7 @@ SELECT
       FROM
         Products)
 ),
-payment_products AS ( --join of infromation from payment and products table
+payment_products AS ( --join of payment and products table
     SELECT
         DATE_TRUNC(month, pay.timestamp)    AS month --I will get the date in format YYYY-MM-DD, example: 2024-05-01. It is monthly granularity, so every day was changed to YYYY-MM-01
         ,prod.product_id                    AS product_id
@@ -74,7 +74,7 @@ products_2023_part2 AS (
 
 SELECT
     product_id
-    ,ROUND(100*(sea.quantity/ord.quantity)-1),2)  AS percent_difference --I will get the percentage difference
+    ,ROUND(100*((sea.quantity/ord.quantity)-1),2)  AS percent_difference --I will get the percentage difference
   FROM
     products_2023_part1 AS ord
   LEFT JOIN  
