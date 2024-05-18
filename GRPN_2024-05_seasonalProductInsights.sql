@@ -1,3 +1,6 @@
+--Seasonal Product Insights: Identify the top 5 products with the highest percentage increase in sales during the holiday season (November and December) compared to the rest of the year
+--Assumption: product table has broken column is_deleted, 
+--Risks: we are looking on relative numbers which can 
 WITH
 --There is one broken column "is_deleted" in the table Products
 --The target is to recreate the column in query to get the right results
@@ -7,7 +10,7 @@ WITH
 -- - the product_id is same for all updated rows
 -- - to select only viable product you would have to select only is_deleted = FALSE
 --Note: in this table one column is missing (Active_product True/False). 
---Snowflake script (beware! this script has not been validated yet, it is only a draft and you may find errors there):
+--Snowflake script (ONLY DRAFT, WITHOUT VALIDATION):
 products_update AS (
 SELECT
     product_id
